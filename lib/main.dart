@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/result.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,10 +30,33 @@ class _BMICalculator extends State<BMICalculatorApp> {
   int weight = 65;
   int age = 25;
 
+  String bodyType = "";
+  double bmiValue = 0;
+
   Color maleCardColor = const Color.fromARGB(205, 101, 101, 101);
   Color femaleCardColor = const Color.fromARGB(205, 101, 101, 101);
 
-  String gender = "";
+  String gender = "male";
+
+  void getBodyType() {
+    setState(() {
+      bmiValue = (weight / ((height * height) / 10000));
+    });
+
+    if (bmiValue < 18.6) {
+      setState(() {
+        bodyType = "Under Weight";
+      });
+    } else if (bmiValue >= 18.6 && bmiValue < 24.9) {
+      setState(() {
+        bodyType = "Normal";
+      });
+    } else {
+      setState(() {
+        bodyType = "Over Weight";
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -338,20 +362,31 @@ class _BMICalculator extends State<BMICalculatorApp> {
 
             Padding(
               padding: const EdgeInsets.only(bottom: 0),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 80,
-                child: const DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 189, 34, 86),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Calculate",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold),
+              child: GestureDetector(
+                onTap: () {
+                  getBodyType();
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ResultClass(bmi: bmiValue, bodyType: bodyType)));
+                },
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 80,
+                  child: const DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 189, 34, 86),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Calculate",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),

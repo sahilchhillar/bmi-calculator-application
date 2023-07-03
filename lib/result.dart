@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class ResultClass extends StatelessWidget {
   double bmi;
   String bodyType;
+  Color bmiColor;
 
-  ResultClass({super.key, required this.bmi, required this.bodyType});
+  ResultClass(
+      {super.key,
+      required this.bmi,
+      required this.bodyType,
+      required this.bmiColor});
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +51,10 @@ class ResultClass extends StatelessWidget {
                     children: [
                       Text(
                         bodyType,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
-                            color: Colors.green),
+                            color: bmiColor),
                       ),
                       const SizedBox(
                         height: 15,

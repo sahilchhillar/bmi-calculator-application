@@ -36,6 +36,8 @@ class _BMICalculator extends State<BMICalculatorApp> {
   Color maleCardColor = const Color.fromARGB(205, 101, 101, 101);
   Color femaleCardColor = const Color.fromARGB(205, 101, 101, 101);
 
+  Color bmiColor = Colors.green;
+
   String gender = "male";
 
   void getBodyType() {
@@ -46,14 +48,17 @@ class _BMICalculator extends State<BMICalculatorApp> {
     if (bmiValue < 18.6) {
       setState(() {
         bodyType = "Under Weight";
+        bmiColor = Colors.green;
       });
     } else if (bmiValue >= 18.6 && bmiValue < 24.9) {
       setState(() {
         bodyType = "Normal";
+        bmiColor = Colors.orange;
       });
     } else {
       setState(() {
         bodyType = "Over Weight";
+        bmiColor = Colors.red;
       });
     }
   }
@@ -370,7 +375,7 @@ class _BMICalculator extends State<BMICalculatorApp> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              ResultClass(bmi: bmiValue, bodyType: bodyType)));
+                              ResultClass(bmi: bmiValue, bodyType: bodyType, bmiColor: bmiColor)));
                 },
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
